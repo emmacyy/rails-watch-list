@@ -7,12 +7,29 @@
       <% list = List.find(bookmark.list_id) %>
       <%= movie.title%>
       <%= bookmark.comment %>
-      <%= link_to "delete",
-                  bookmark_path(bookmark),
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %>
     </li>
     <% end %>
 </ul>
 
 <%= link_to 'Back', lists_path %>
+<ul class="list-group">
+  <% @list.bookmarks.each do |bookmark| %>
+    <li class="list-group-item">
+      <% movie = Movie.find(bookmark.movie_id) %>
+      <% list = List.find(bookmark.list_id) %>
+      <div class="card" style="width: 18rem;">
+        <img src="<%=movie.poster_url%>" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><%= movie.title%></h5>
+          <p class="card-text"><%= bookmark.comment %></p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+      <%= link_to "delete",
+                  bookmark_path(bookmark),
+                  class: "btn btn-danger",
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
